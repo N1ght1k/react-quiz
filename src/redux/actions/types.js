@@ -1,0 +1,8 @@
+export const CREATE_QUIZ = 'CREATE_QUIZ'
+export const CREATE_HEADER = 'CREATE_HEADER'
+export const ADD_QUESTION = 'ADD_QUESTION'
+export const CHANGE_ACTIVE_FORM = 'CHANGE_ACTIVE_FORM'
+export const CHANGE_QUESTIONS = 'CHANGE_QUESTIONS'
+export const ADD_ANSWER = 'ADD_ANSWER'
+export const HIDE_LOADER = 'HIDE_LOADER'
+export const FETCH_QUIZ = 'FETCH_QUIZ'
