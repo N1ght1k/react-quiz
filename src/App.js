@@ -1,6 +1,7 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import { Navbar } from './Components/Navbar/Navbar';
+import ActiveQuiz from './Pages/ActiveQuiz/ActiveQuiz';
 import ActiveQuizes from './Pages/ActiveQuizes/ActiveQuizes';
 import Auth from './Pages/Auth/Auth';
 import QuizCreator from './Pages/QuizCreator/QuizCreator';
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" exact component={ActiveQuizes}/>
           <Route path="/auth" exact component={Auth}/>
           <Route path="/quiz-creator" exact component={QuizCreator}/>
+          <Route path="/quiz/:id" component={ActiveQuiz} />
         </Switch>
       </div>
     </BrowserRouter>

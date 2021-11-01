@@ -34,7 +34,7 @@ const QuestionForm = () => {
 		<form className="m-auto p-5 border border-primary rounded" >
 			<div className="mb-1 d-grid">
 				<input type="text" 
-					className="form-control border border-light border-1" 
+					className="form-control-lg border border-light border-1" 
 					name="title"
 					key={ `title_${activeForm - 1}` }
 					defaultValue={ title } 
@@ -43,7 +43,7 @@ const QuestionForm = () => {
 			</div>
 			<div className="mb-3 d-grid">
 				<input type="text" 
-					className="form-control border border-light border-1" 
+					className="form-control-sm border border-light border-1" 
 					key={ `text_${activeForm - 1}` }
 					defaultValue={ text } 
 					name="text"
@@ -70,9 +70,6 @@ const QuestionForm = () => {
 			<div className="d-grid gap-2 d-md-flex justify-content-md-start">
 				<button className="btn btn-outline-primary rounded-pill" type="button" onClick={ () => addAnswerHandler() }>Добавить ответ</button>
 				<button className="btn btn-outline-primary rounded-pill" type="button">Добавить ответ - "Другой"</button>
-			</div>
-			<div className="d-grid gap-2 d-md-flex justify-content-md-start">
-				<button type="submit" className="btn btn-primary m-2">Сохранить</button>
 			</div>
 		</form>
 	)
