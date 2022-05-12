@@ -1,18 +1,41 @@
-import React from 'react'
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEdit, faEye, faTrashAlt } from '@fortawesome/free-regular-svg-icons';
-
+import { FaTrashAlt, FaEdit, FaChartBar } from "react-icons/fa";
+import { setDelQuiz } from "../../redux/actions/quizes";
 
 const Editbar = (props) => {
-	return (
-		<div>
-			<Link className="m-2" to={'editQuiz/' + props.quizId} target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faEdit} /></Link>
-			<Link className="m-2" to="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faEye} /></Link>
-			<Link className="m-2" to="#" target="_blank" rel="noopener noreferrer"><FontAwesomeIcon icon={faTrashAlt} /></Link>
-		</div>
-	)
-}
+  const dispatch = useDispatch();
+  return (
+    <div className="d-flex ms-2">
+      <div>
+        <Link
+          className="m-1"
+          to={"results/" + props.quizId}
+          rel="noopener noreferrer"
+        >
+          <FaChartBar />
+        </Link>
+      </div>
+      <div>
+        <Link
+          className="m-1"
+          to={"edit/" + props.quizId}
+          rel="noopener noreferrer"
+        >
+          <FaEdit />
+        </Link>
+      </div>
+      <div
+        type="button"
+        data-bs-toggle="modal"
+        data-bs-target="#staticBackdrop"
+        onClick={() => dispatch(setDelQuiz(props.quizId))}
+      >
+        <FaTrashAlt />
+      </div>
+    </div>
+  );
+};
 
-export default Editbar
-
+export default Editbar;

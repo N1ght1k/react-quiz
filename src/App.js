@@ -1,25 +1,31 @@
-import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom'
-import { Navbar } from './Components/Navbar/Navbar';
-import ActiveQuiz from './Pages/ActiveQuiz/ActiveQuiz';
-import ActiveQuizes from './Pages/ActiveQuizes/ActiveQuizes';
-import Auth from './Pages/Auth/Auth';
-import QuizCreator from './Pages/QuizCreator/QuizCreator';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Navbar } from "./Components/Navbar/Navbar";
+import ActiveQuiz from "./Pages/ActiveQuiz/ActiveQuiz";
+import Quizes from "./Pages/Quizes/Quizes";
+import Auth from "./Pages/Auth/Auth";
+import Reg from "./Pages/Auth/Reg";
+import QuizCreator from "./Pages/QuizCreator/QuizCreator";
+import QuizResults from "./Pages/QuizResults/QuizResults";
 
 function App() {
+  const user = localStorage.getItem("token");
   return (
     <BrowserRouter>
       <Navbar />
       <div className="container pt-4">
-        <Switch>
-          <Route path="/" exact component={ActiveQuizes}/>
-          <Route path="/auth" exact component={Auth}/>
-          <Route path="/quiz-creator" exact component={QuizCreator}/>
-          <Route path="/quiz/:id" component={ActiveQuiz} />
-        </Switch>
+        <Routes>
+          <Route path="/" element={<Quizes />} />
+          <Route path="/auth" element={<Auth />} />
+          {user && <Route path="/quiz-creator" element={<QuizCreator />} />}
+          <Route path="/quiz/:id" element={<ActiveQuiz />} />
+          <Route path="/edit/:id" element={<QuizCreator />} />
+          <Route path="/results/:id" element={<QuizResults />} />
+          {user && <Route path="/add_user" element={<Reg />} />}
+        </Routes>
       </div>
     </BrowserRouter>
-  )
+  );
 }
 
 export default App;

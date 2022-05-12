@@ -17,10 +17,10 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const url = "http://localhost:8080/api/auth";
+      const url = "http://localhost:8080/api/users";
       const { data: res } = await axios.post(url, data);
-      localStorage.setItem("token", res.data);
-      window.location = "/";
+      // navigate("/login");
+      console.log(res.message);
     } catch (error) {
       if (
         error.response &&
@@ -30,11 +30,6 @@ const Auth = () => {
         setError(error.response.data.message);
       }
     }
-  };
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    window.location.reload();
   };
 
   return (
@@ -65,14 +60,14 @@ const Auth = () => {
           placeholder="Пароль"
         />
       </div>
-      <div className="d-grid gap-2 mt-2">
+      {/* <div className="d-grid gap-2 mt-2">
         <button type="submit" className="btn btn-primary">
           Войти
         </button>
-      </div>
+      </div> */}
       <div className="d-grid gap-2 mt-2">
-        <button className="btn btn-primary" onClick={handleLogout}>
-          Выйти
+        <button type="submit" className="btn btn-primary">
+          Регистрация
         </button>
       </div>
     </form>

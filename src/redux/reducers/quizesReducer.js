@@ -1,32 +1,22 @@
-import { CREATE_QUIZ, FETCH_QUIZ } from "../actions/types"
+import { CREATE_QUIZ, SET_QUIZES, SET_DEL_QUIZ } from "../actions/types";
+import produce from "immer";
 
 const initialState = {
-	quizes: [
-		{
-			title: 'Опрос 1',
-			type: 'active',
-			id: 23
-		},
-		{
-			title: 'Опрос 2',
-			type: 'active',
-			id: 24
-		},
-		{
-			title: 'Опрос 3',
-			type: 'active',
-			id: 25
-		}
-	],
-	fetchedQuizes: []
-}
+  quizes: [],
+  delQuizId: "",
+};
 
 export const quizesReducer = (state = initialState, action) => {
-	switch (action.type) {
-		case CREATE_QUIZ:
-			return { ...state, quizes: state.quizes.concat(action.payload) }
-		case FETCH_QUIZ:
-			return { ...state, fetchedQuizes: action.payload}
-		default: return state
-	}
-}
+  switch (action.type) {
+    case SET_QUIZES:
+      return produce(state, (draft) => {
+        draft.quizes = action.payload;
+      });
+    case SET_DEL_QUIZ:
+      return produce(state, (draft) => {
+        draft.delQuizId = action.payload;
+      });
+    default:
+      return state;
+  }
+};
