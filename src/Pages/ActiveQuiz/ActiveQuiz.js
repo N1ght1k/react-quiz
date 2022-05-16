@@ -12,6 +12,7 @@ import {
 } from "../../redux/actions/activeQuiz";
 import AnswerService from "../../services/AnswerService";
 import QuizService from "../../services/QuizService";
+import Congratulation from "../../Components/Quiz/Congratulation/Congratulation";
 
 const ActiveQuiz = () => {
   const id = useParams();
@@ -22,6 +23,7 @@ const ActiveQuiz = () => {
   const alert = activeQuiz.alert;
   const emptyAnswers = activeQuiz.emptyAnswers;
   const alertRef = useRef(null);
+  const [success, setSuccess] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -56,7 +58,8 @@ const ActiveQuiz = () => {
     AnswerService.postAnswer(answer)
       .then((res) => {
         if (res === "success") {
-          navigate("/");
+          setSuccess(true);
+          // navigate("/");
         }
       })
       .catch((err) => {
@@ -115,26 +118,33 @@ const ActiveQuiz = () => {
   return (
     <div className="container">
       <div className="row justify-content-center">
-        <div className="col-5">
-          <div ref={alertRef}>
-            {alert ? (
-              <div className="alert alert-warning" role="alert">
-                {`Заполните вопросы ${emptyAnswers.toString()}`}
-              </div>
-            ) : null}
+        {/* <div className="col-5"> */}
+        {success ? (
+          <Congratulation />
+        ) : (
+          <div className="col-5">
+            {" "}
+            <div ref={alertRef}>
+              {alert ? (
+                <div className="alert alert-warning" role="alert">
+                  {`Заполните вопросы ${emptyAnswers.toString()}`}
+                </div>
+              ) : null}
+            </div>
+            <QuizHeader />
+            <QuizQuestions />
+            <div className="d-flex justify-content-center">
+              <button
+                type="button"
+                className="mt-4 mb-4 w-50 btn btn-success"
+                onClick={(e) => checkAnswer(e)}
+              >
+                Отправить
+              </button>
+            </div>
           </div>
-          <QuizHeader />
-          <QuizQuestions />
-          <div className="d-flex justify-content-center">
-            <button
-              type="button"
-              className="mt-4 mb-4 w-50 btn btn-success"
-              onClick={(e) => checkAnswer(e)}
-            >
-              Отправить
-            </button>
-          </div>
-        </div>
+        )}
+        {/* </div> */}
       </div>
     </div>
   );

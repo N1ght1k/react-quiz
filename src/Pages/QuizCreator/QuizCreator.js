@@ -6,8 +6,11 @@ import DesignerHeader from "../../Components/Designer/DesignerHeader/DesignerHea
 import QuestionForm from "../../Components/Designer/QuestionForm/QuestionForm";
 import QuestionListBar from "../../Components/Designer/QuestionListBar/QuestionListBar";
 import { resetDesigner, setEdit } from "../../redux/actions/createQuiz";
+import QuizService from "../../services/QuizService";
+import { Plane } from "react-loader-spinner";
 
 const QuizCreator = () => {
+  const [spinnerLoading, setSpinnerLoading] = useState(false);
   const activeForm = useSelector((state) => state.create.activeForm);
   const id = useParams();
   const dispatch = useDispatch();
@@ -21,18 +24,28 @@ const QuizCreator = () => {
     }
   };
 
-  const fetchQuiz = async () => {
-    const response = await axios
-      .get(`http://localhost:8080/api/quizes/${id.id}`)
+  // const fetchQuiz = async () => {
+  //   const response = await axios
+  //     .get(`http://localhost:8080/api/quizes/${id.id}`)
+  //     .catch((err) => {
+  //       console.log("Err", err);
+  //     });
+  //   console.log(response.data);
+  //   setDefault(response.data);
+  // };
+
+  function getQuiz() {
+    QuizService.getQuiz(id.id)
+      .then((res) => {
+        setSpinnerLoading(false);
+        setDefault(res);
+      })
       .catch((err) => {
-        console.log("Err", err);
+        console.log(err);
       });
-    console.log(response.data);
-    setDefault(response.data);
-  };
+  }
 
   function setDefault(data) {
-    console.log("ololo");
     let defaultObj = {
       header: data.header,
       questions: data.questions,
@@ -40,12 +53,14 @@ const QuizCreator = () => {
       edit: true,
       quizId: data._id,
     };
-    console.log(defaultObj);
     dispatch(setEdit(defaultObj));
   }
 
   useEffect(() => {
-    if (id.id) fetchQuiz();
+    if (id.id) {
+      setSpinnerLoading(true);
+      getQuiz();
+    }
     return () => {
       dispatch(resetDesigner());
     };
@@ -57,6 +72,15 @@ const QuizCreator = () => {
         <QuestionListBar />
       </div>
       <div className="col-10">
+        <div>
+          <Plane
+            type="Plane"
+            color="#00BFFF"
+            height={100}
+            width={100}
+            visible={spinnerLoading}
+          />
+        </div>
         <div className="d-flex">{formHandler()}</div>
       </div>
     </div>

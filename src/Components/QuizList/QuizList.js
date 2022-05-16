@@ -36,19 +36,19 @@ const QuizList = () => {
   //   // dispatch(fetchedQuizes(response.data));
   // };
 
-  const delQuiz = async (id, index) => {
-    const response = await axios
-      .delete(`http://localhost:8080/api/quizes/${id}`)
-      .catch((err) => {
-        console.log("Err", err);
-      });
-    console.log(response.data);
-    setQuizes([
-      ...quizes.slice(0, index),
-      ...quizes.slice(index + 1, quizes.length),
-    ]);
-    // window.location.reload();
-  };
+  // const delQuiz = async (id, index) => {
+  //   const response = await axios
+  //     .delete(`http://localhost:8080/api/quizes/${id}`)
+  //     .catch((err) => {
+  //       console.log("Err", err);
+  //     });
+  //   console.log(response.data);
+  //   setQuizes([
+  //     ...quizes.slice(0, index),
+  //     ...quizes.slice(index + 1, quizes.length),
+  //   ]);
+  //   // window.location.reload();
+  // };
 
   useEffect(() => {
     getQuizes();
@@ -72,7 +72,7 @@ const QuizList = () => {
               <Link to={`/quiz/${quiz.id}`} className="link-secondary">
                 {`${index + 1}. ${quiz.name}`}
               </Link>
-              <Editbar quizId={quiz.id} delQuiz={delQuiz} />
+              <Editbar quizId={quiz.id} />
             </li>
           );
         })}
