@@ -17,11 +17,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Quizes />} />
           <Route path="/auth" element={<Auth />} />
-          {user && <Route path="/quiz-creator" element={<QuizCreator />} />}
+          {/* {user && <Route path="/quiz-creator" element={<QuizCreator />} />} */}
+          <Route path="/quiz-creator" element={<QuizCreator />} />
           <Route path="/quiz/:id" element={<ActiveQuiz />} />
           <Route path="/edit/:id" element={<QuizCreator />} />
           <Route path="/results/:id" element={<QuizResults />} />
-          {user && <Route path="/add_user" element={<Reg />} />}
+          {/* {user && <Route path="/add_user" element={<Reg />} />} */}
+          <Route path="/add_user" element={<Reg />} />
         </Routes>
       </div>
     </BrowserRouter>
